@@ -6,7 +6,7 @@ import {
   verifyAccessToken,
   verifyRefreshToken,
 } from "../utils/auth.js";
-import cookieParser from "cookie-parser";
+
 const router = Router();
 
 /**
@@ -82,6 +82,9 @@ router.get("/me", async (req, res) => {
   }
 });
 
+/**
+ * @POST /api/auth/refresh
+ */
 router.post("/refresh", async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   const decoded = verifyRefreshToken(refreshToken);
