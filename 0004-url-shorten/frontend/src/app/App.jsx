@@ -9,7 +9,6 @@ const App = () => {
     shortCode: "",
     originalUrl: "",
   });
-  console.log(curentUrl);
 
   async function fetchUrl() {
     const response = await axios.get("http://localhost:5173/api/url");
