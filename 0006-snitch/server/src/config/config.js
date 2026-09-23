@@ -4,7 +4,7 @@ dotenv.config() ;
 
 const config = {
     MONGO_URI: process.env.MONGO_URI ,
-    ACCESSTOKEN_SECRET :process.env.ACCESSTOKEN_SECRET,
-    REFRESHTOKEN_SECRET : process.env.REFRESHTOKEN_SECRET,
+    ACCESS_TOKEN_SECRET :process.env.ACCESS_TOKEN_SECRET,
+    REFRESH_TOKEN_SECRET : process.env.REFRESH_TOKEN_SECRET,
 }
 export default config
