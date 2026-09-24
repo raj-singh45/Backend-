@@ -11,14 +11,14 @@ export function createAccessToken({ userId, role }) {
 export function createRefreshToken({ userId, role }) {
     const refreshToken = jwt.sign({
         userId, role
-    }, config.REFRESH_TOKEN_SECRET, { expiresIn: "15Min" })
+    }, config.REFRESH_TOKEN_SECRET, { expiresIn: "7DAYS" })
 
     return refreshToken
 }
 
 
 export function readRefreshToken(refreshToken){
-   return jwt.verify(readRefreshToken,config.REFRESH_TOKEN_SECRET)
+   return jwt.verify(refreshToken,config.REFRESH_TOKEN_SECRET)
 }
 export function readAccessToken(accessToken){
     return jwt.verify(accessToken,config.ACCESS_TOKEN_SECRET) ; 

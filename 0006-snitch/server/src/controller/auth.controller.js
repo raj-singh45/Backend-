@@ -1,6 +1,6 @@
 import userModel from "../model/user.model.js";
 import bcrypt from "bcryptjs";
-import { createAccessToken, createRefreshToken } from "../utils/auth.utils.js";
+import { createAccessToken, createRefreshToken, readRefreshToken } from "../utils/auth.utils.js";
 
 
 /**
@@ -145,3 +145,62 @@ export async function getMe(req, res) {
     })
 
 }
+
+export const refreshController = async (req, res) => {
+  // reads the refresh token,
+  const {refreshToken} = req.cookies;
+  
+        if (!refreshToken) {
+            return res.status(401).json({ message: "Refresh Token missing. Please log in again." });
+        }
+
+  const { userId, role} = readRefreshToken(refreshToken);
+  const user = await userModel.findById(userId);
+    // console.log(refreshToken)
+    // console.log(user.refreshToken)
+
+  if (!user) {
+    return res.status(400).json({
+      message: "User does not exist ",
+    });
+  }
+
+  
+  if (refreshToken !== user.refreshToken) {
+    user.refreshToken = null;
+    return res.status(403).json({
+      message: "Re-login again",
+    });
+  }
+
+ const newAccessToken = createAccessToken({
+        userId: user._id,
+        role: user.role
+    })
+
+    const newRefreshToken = createRefreshToken({
+        userId: user._id,
+        role: user.role
+    })
+
+  await userModel.findByIdAndUpdate(userId ,
+    { refreshToken: newRefreshToken },
+  );
+
+  res.cookie("refreshToken", newRefreshToken, {
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    message: "Refresh token rotated succesfully",
+    data: {
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+      newAccessToken,
+      newRefreshToken,
+    },
+  });
+};
