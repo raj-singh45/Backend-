@@ -2,8 +2,6 @@ import productModel from "../model/product.model.js";
 import { uploadFile } from "../services/storage.service.js";
 
 export async function createProduct(req, res) {
-  // console.log(req.body)
-  // console.log(req.files)
 
   const filesUrls = [];
 
