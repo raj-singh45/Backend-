@@ -43,6 +43,4 @@ export async function listAllProducts(req,res){
             }
     })
 
-   
-
 }
