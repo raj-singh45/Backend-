@@ -69,7 +69,7 @@ export async function addToCart(req, res) {
         {
             $push: {
                 products: {
-                    product: productId,
+                    product: productId, 
                     quantity: quantity,
                     size: size
                 }
