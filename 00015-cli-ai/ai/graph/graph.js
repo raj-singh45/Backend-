@@ -25,6 +25,9 @@ const graph = new StateGraph(stateFormate)
 export default async function initGraph() {
    while(true){
     const userInput = await rl.question("[User]: ");
+    if(userInput.toLowerCase() === "/bye"){
+      break ; //it will break the loop and exit the program when user types /bye and control goes to main.js where rl.close() is called to close the readline interface.
+    }
     messages.push(new HumanMessage(userInput));
    const response = await graph.invoke({
     messages
