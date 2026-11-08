@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import { CONFIG_DIR, HOME_DIR } from "./constant.js";
 import path from "path";
+import axios from "axios";
 // return the content of setting file if it exists,if does not exist create the file and return the content of setting file
 export async function getSettingsFile() {
   try {
@@ -32,7 +33,8 @@ export async function saveApiKey(apiKey) {
  */
 export async function getApiKey() {
     const settings = await getSettingsFile()
-    const apiKey = settings.apiKey || null
+    const apiKey = settings.apiKey || null 
+    console.log("apiKey", apiKey)
 
     if (!apiKey) {
         return {
@@ -46,7 +48,7 @@ export async function getApiKey() {
                 "Authorization": `Bearer ${apiKey}`
             }
         })
-
+   console.log("debug done")
         return {
             apiKey
         }
@@ -58,3 +60,5 @@ export async function getApiKey() {
     }
 
 }
+
+

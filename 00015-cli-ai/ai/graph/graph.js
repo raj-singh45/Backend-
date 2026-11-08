@@ -1,8 +1,8 @@
 import { StateGraph, START, END } from "@langchain/langgraph";
-import { LLMNode } from "./node.js";
 import { HumanMessage } from "langchain";
-import rl from "../utils/readline.js";
 import * as z from "zod";
+import rl from "../../src/utils/readline.js";
+import { LLMNode } from "./node.js";
 
 const stateFormate = z.object({
   messages: z.array(z.any()),
@@ -14,11 +14,11 @@ const graph = new StateGraph(stateFormate)
   .addEdge("LLMNode", END)
   .compile();
 
-while (true) {
-  const userInput = await rl.question("[User]: ");
-  const response = await graph.invoke({
-    messages: new HumanMessage(userInput),
-  });
-
-  console.log("[AI]:", response);
+export default async function initGraph() {
+   while(true){
+    const userInput = await rl.question("[User]: ");
+   const response = await graph.invoke({
+      messages: [new HumanMessage(userInput )],
+    });
+   }
 }
