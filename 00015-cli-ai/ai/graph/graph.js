@@ -14,11 +14,18 @@ const graph = new StateGraph(stateFormate)
   .addEdge("LLMNode", END)
   .compile();
 
+let messages = [];
+
 export default async function initGraph() {
    while(true){
     const userInput = await rl.question("[User]: ");
+    messages.push(new HumanMessage(userInput));
    const response = await graph.invoke({
-      messages: [new HumanMessage(userInput )],
+    messages
     });
+    // llm node will return the updated state after processing the messages, which includes the new AI message appended to the messages array.
+    //response contains the updated state after invoking the graph, which includes the messages array with the new AI message appended.
+    messages = response.messages; //thats why we are updating the messages array with the new state after each invocation of the graph. it conain user messages and ai response messages.
    }
+   
 }

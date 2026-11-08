@@ -34,8 +34,6 @@ export async function saveApiKey(apiKey) {
 export async function getApiKey() {
     const settings = await getSettingsFile()
     const apiKey = settings.apiKey || null 
-    console.log("apiKey", apiKey)
-
     if (!apiKey) {
         return {
             error: "API key not found in settings file"
@@ -48,7 +46,6 @@ export async function getApiKey() {
                 "Authorization": `Bearer ${apiKey}`
             }
         })
-   console.log("debug done")
         return {
             apiKey
         }

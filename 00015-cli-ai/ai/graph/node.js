@@ -7,7 +7,7 @@ export  async function LLMNode(state) {
     model: "openai/gpt-oss-120b",
     apiKey: (await getApiKey()).apiKey,
   });
-  console.log("LLMNode state", state);
+//   console.log("LLMNode state", state);
   const stream = await model.stream(state.messages);
   process.stdout.write("[AI]: ");
   let aiMessage = "";
