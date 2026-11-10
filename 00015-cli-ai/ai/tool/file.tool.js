@@ -4,8 +4,8 @@ import fs from "fs/promises";
 /**
  *  "Create/Update multiple files at once (create one if not existed)",
  */
-export const upsertFileTool = tool(
-  async function upsertFile({ files }) {
+export const upsertFiles = tool(
+  async function upsertFiles({ files }) {
     await Promise.all(
       files.map(async (file) => {
         return await fs.writeFile(file.path, file.content);
@@ -14,7 +14,7 @@ export const upsertFileTool = tool(
     return "files created/updated successfully";
   },
   {
-    name: "upsertFile",
+    name: "upsertFiles",
     description:
       "Create/Update multiple files at once (create one if not existed)",
     schema: z.object({
