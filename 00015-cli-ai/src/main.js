@@ -4,7 +4,6 @@ import rl from "./utils/readline.js";
 
 async function main() {
   const settings = await getSettingsFile();
-  console.log(settings);
   if (!settings.apiKey) {
     const apiKey = await rl.question("Please enter your OpenAI API key: ");
     await saveApiKey(apiKey);

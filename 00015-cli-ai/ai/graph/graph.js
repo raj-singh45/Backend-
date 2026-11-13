@@ -12,6 +12,7 @@ const graph = new StateGraph(stateFormate)
   .addNode("LLMNode", LLMNode)
   .addNode("ToolNode", ToolNode)
   .addEdge(START, "LLMNode")
+  .addEdge("ToolNode" , "LLMNode") 
   .addConditionalEdges(
     "LLMNode",
     (state) => {
@@ -19,7 +20,7 @@ const graph = new StateGraph(stateFormate)
       if (lastMessage.tool_calls && lastMessage.tool_calls.length > 0) {
         return "ToolNode";
       } else {
-        ("__end__");
+       return  ("__end__");
       }
     },
     ["ToolNode", "__end__"],
@@ -50,6 +51,6 @@ export default async function initGraph() {
     // llm node will return the updated state after processing the messages, which includes the new AI message appended to the messages array.
     //response contains the updated state after invoking the graph, which includes the messages array with the new AI message appended.
     messages = response.messages; //thats why we are updating the messages array with the new state after each invocation of the graph. it conain user messages and ai response messages.
-    console.log(response);
+    
   }
 }
