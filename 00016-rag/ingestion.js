@@ -46,3 +46,16 @@ await index.documents.upsert({
         }
     })
 })
+
+// documents: [
+//   {
+//     _id: 'chunk-0',
+//     embedding: [0.012, -0.045, 0.891, ...],
+//     content: 'Pehle chunk ka asli text...'
+//   },
+//   {
+//     _id: 'chunk-1',
+//     embedding: [-0.033, 0.112, 0.405, ...],
+//     content: 'Doosre chunk ka asli text...'
+//   }
+// ]
